@@ -1,5 +1,6 @@
 package br.com.acrtech.planningpoker.organizacoes.controller;
 
+import br.com.acrtech.planningpoker.organizacoes.dto.OrganizacaoDto;
 import br.com.acrtech.planningpoker.organizacoes.exception.ErroAoRecuperarOrganizacoesException;
 import br.com.acrtech.planningpoker.organizacoes.exception.ErroAoSalvarOrganizacaoException;
 import br.com.acrtech.planningpoker.organizacoes.exception.OrganizacaoNaoEncontradaException;
@@ -7,17 +8,17 @@ import br.com.acrtech.planningpoker.organizacoes.model.Organizacao;
 import br.com.acrtech.planningpoker.organizacoes.service.OrganizacaoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class OrganizacaoController {
 
     private final OrganizacaoService organizacaoService;
@@ -27,7 +28,7 @@ public class OrganizacaoController {
     }
 
     @PostMapping(produces = "application/json; charset=UTF-8")
-    public ResponseEntity<Organizacao> save(@RequestBody Organizacao organizacao){
+    public ResponseEntity<OrganizacaoDto> save(@RequestBody OrganizacaoDto organizacao){
         try {
             return ResponseEntity.ok(organizacaoService.save(organizacao));
         } catch (ErroAoSalvarOrganizacaoException e) {

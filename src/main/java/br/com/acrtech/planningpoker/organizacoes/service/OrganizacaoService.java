@@ -1,5 +1,6 @@
 package br.com.acrtech.planningpoker.organizacoes.service;
 
+import br.com.acrtech.planningpoker.organizacoes.dto.OrganizacaoDto;
 import br.com.acrtech.planningpoker.organizacoes.exception.ErroAoRecuperarOrganizacoesException;
 import br.com.acrtech.planningpoker.organizacoes.exception.ErroAoSalvarOrganizacaoException;
 import br.com.acrtech.planningpoker.organizacoes.exception.OrganizacaoNaoEncontradaException;
@@ -22,10 +23,10 @@ public class OrganizacaoService {
         this.organizacaoRepository = organizacaoRepository;
     }
 
-    public Organizacao save(Organizacao organizacao){
+    public OrganizacaoDto save(OrganizacaoDto organizacao){
         log.info("Salvando a organização {}", organizacao.getNome());
         try {
-            return organizacaoRepository.save(organizacao);
+            return new OrganizacaoDto(organizacaoRepository.save(new Organizacao(organizacao)));
         } catch (Exception e) {
             log.error("Erro ao tentar salvar organização {}", organizacao.getNome());
             throw new ErroAoSalvarOrganizacaoException("Erro ao tentar salvar organização");
